@@ -1,5 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { App } from "./App";
+import { ChakraProvider } from "@chakra-ui/react";
 
-ReactDOM.render(<App />, document.querySelector("#app"));
+ReactDOM.render(
+  <ChakraProvider>
+    <App />
+  </ChakraProvider>,
+  document.querySelector("#app")
+);
