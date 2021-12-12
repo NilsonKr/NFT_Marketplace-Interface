@@ -1,3 +1,7 @@
 export const Home = () => {
-	return <h2>Hello you are on the Home page!</h2>;
+  return (
+    <div>
+      <h2>Hello , Welcome to the Home page</h2>
+    </div>
+  );
 };
