@@ -1,25 +1,22 @@
 import { useEffect } from "react";
+import { useWeb3React } from "@web3-react/core";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Home } from "./Pages/Home";
-// import Web3 from "web3";
+import { connector } from "./Config/Web3/Index";
 
 export const App = () => {
+  const { active, activate, account } = useWeb3React();
+
   useEffect(() => {
-    //   if (window.ethereum) {
-    //     // window.ethereum
-    //     //   .request({
-    //     //     method: "eth_requestAccounts",
-    //     //   })
-    //     //   .then(console.log);
-    //     const web3 = new Web3(window.ethereum);
-    //     // web3.eth.requestAccounts().then((accs) => console.log(accs));
-    //   }
+    activate(connector).then(console.log);
   }, []);
+
+  console.log(active);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home account={account} />} />
       </Routes>
     </BrowserRouter>
   );
