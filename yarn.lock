@@ -15061,6 +15061,7 @@ __metadata:
     typescript: ^4.5.3
     web-vitals: ^1.0.1
     web3: ^1.6.1
+    web3-eth-contract: ^1.6.1
     web3-react: ^5.0.5
   languageName: unknown
   linkType: soft
@@ -21510,7 +21511,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web3-eth-contract@npm:1.6.1":
+"web3-eth-contract@npm:1.6.1, web3-eth-contract@npm:^1.6.1":
   version: 1.6.1
   resolution: "web3-eth-contract@npm:1.6.1"
   dependencies:

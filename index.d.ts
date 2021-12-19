@@ -3,3 +3,8 @@ interface Window {
 }
 
 type Taccount = string | null | undefined;
+
+interface ICrazyPunks {
+  address: { [key: number]: string };
+  abi: any;
+}

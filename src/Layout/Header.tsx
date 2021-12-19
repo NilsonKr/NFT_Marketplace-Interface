@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import { Link as RouterLink } from "react-router-dom";
 import { connector } from "../Config/Web3/Index";
@@ -27,32 +27,32 @@ export const Header = () => {
 
   const isUnsupportedChain = error instanceof UnsupportedChainIdError;
 
-  const connect = () => {
+  const connect = useCallback(() => {
     activate(connector).then(() => {
       localStorage.setItem("isConnected", "true");
     });
-  };
+  }, [activate]);
 
   const disconnect = () => {
     deactivate();
     localStorage.removeItem("isConnected");
   };
 
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     const balance = await library.eth.getBalance(account);
 
     setBalance((balance / 1e18).toFixed(4));
 
     return balance;
-  };
+  }, [account, library?.eth]);
 
   useEffect(() => {
     if (localStorage.getItem("isConnected") === "true") connect();
-  }, []);
+  }, [connect]);
 
   useEffect(() => {
     if (account) getBalance();
-  }, [account]);
+  }, [account, getBalance]);
 
   return (
     <Box className="container" boxShadow={"0 4px 8px rgba(0,0,0,.09)"}>
