@@ -2033,6 +2033,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chakra-ui/icons@npm:^1.1.1":
+  version: 1.1.2
+  resolution: "@chakra-ui/icons@npm:1.1.2"
+  dependencies:
+    "@chakra-ui/icon": 2.0.0
+    "@types/react": ^17.0.15
+  peerDependencies:
+    "@chakra-ui/system": ">=1.0.0"
+    react: ">=16.8.6"
+  checksum: 0c1f20594b9681cf7701e59925a0589e4d92541ae9a8cfa6abbb9b95efe4d367b5b7ec7c6eae1a0a791ff04fa91c0b074e693f0dcda6a35b8e9af03085b1010e
+  languageName: node
+  linkType: hard
+
 "@chakra-ui/image@npm:1.1.1":
   version: 1.1.1
   resolution: "@chakra-ui/image@npm:1.1.1"
@@ -4146,7 +4159,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^17.0.37":
+"@types/react@npm:*, @types/react@npm:^17.0.15, @types/react@npm:^17.0.37":
   version: 17.0.37
   resolution: "@types/react@npm:17.0.37"
   dependencies:
@@ -15022,10 +15035,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nft_marketplace-interface-cra@workspace:.":
+"nft_marketplace-interface@workspace:.":
   version: 0.0.0-use.local
-  resolution: "nft_marketplace-interface-cra@workspace:."
+  resolution: "nft_marketplace-interface@workspace:."
   dependencies:
+    "@chakra-ui/icons": ^1.1.1
     "@chakra-ui/react": ^1.7.3
     "@emotion/react": ^11
     "@emotion/styled": ^11

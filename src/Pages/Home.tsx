@@ -1,9 +1,7 @@
-export const Home = ({ account }: { account: Taccount }) => {
-  console.log(account);
-
+export const Home = () => {
   return (
     <div>
-      <h2>Hello , Welcome to the Home page, your account {account ?? "-"}</h2>
+      <h2>Hello , Welcome to the Home page, your account</h2>
     </div>
   );
 };
