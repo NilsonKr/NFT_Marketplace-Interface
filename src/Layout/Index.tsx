@@ -7,7 +7,12 @@ import { Footer } from "./Footer";
 
 const Layout: React.FC = ({ children }) => {
   return (
-    <Box position={"relative"} minH="100vh">
+    <Box
+      backgroundColor="green.200"
+      position={"relative"}
+      minH="100vh"
+      zIndex={"1"}
+    >
       <Header />
       {children}
       <Footer />

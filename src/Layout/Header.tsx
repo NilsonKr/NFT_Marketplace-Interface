@@ -55,7 +55,13 @@ export const Header = () => {
   }, [account, getBalance]);
 
   return (
-    <Box className="container" boxShadow={"0 4px 8px rgba(0,0,0,.09)"}>
+    <Box
+      className="container"
+      position="relative"
+      zIndex={1}
+      backgroundColor={"gray.50"}
+      boxShadow={"0 4px 8px rgba(0,0,0,.09)"}
+    >
       <Flex align={"center"}>
         <Image marginRight="35px" src={Logo} alt="CrazyPunks" />
         <Text className="navTab" fontWeight={"500"} fontSize={"lg"}>
