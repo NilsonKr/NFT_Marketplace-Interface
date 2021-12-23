@@ -1,4 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import useCrazyPunks from "../Hooks/useCrazyPunks";
 //Components
@@ -112,25 +113,28 @@ export const Home = () => {
           position={"relative"}
           _after={{
             content: "''",
+            borderRadius: "50%",
             position: "absolute",
-            top: 0,
+            top: -70,
             zIndex: 1,
             width: "100%",
-            height: "100%",
+            height: "140%",
             background:
-              " linear-gradient(180deg, rgba(2,0,36,.8) 0%, rgba(255,255,255,.1) 100%)",
+              "radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(246,246,246,0) 80%)",
           }}
         >
           <Stack spacing={6} direction={"row"}>
             <Image src={Avatar1} w={"3xs"} h={"2xs"} pb={10} />
-            <Image src={Avatar2} pb={10} w={"3xs"} h={"2xs"} />
+            <motion.div initial={true} animate={{ x: 100 }}>
+              <Image src={Avatar2} pb={10} w={"3xs"} h={"2xs"} />
+            </motion.div>
           </Stack>
           <Image
-            w={"2xs"}
-            h={"2xs"}
+            w={"1xs"}
+            h={"1xs"}
             src={"https://avataaars.io/"}
             position={"absolute"}
-            top={5}
+            top={0}
             left={"50%"}
             transform={"translateX(-50%)"}
             zIndex={"2"}
@@ -157,7 +161,7 @@ export const Home = () => {
             </Button>
           </>
         ) : (
-          <Badge mt={2}>Wallet desconectado</Badge>
+          <Badge mt={10}>Wallet desconectado</Badge>
         )}
       </Flex>
     </Stack>
