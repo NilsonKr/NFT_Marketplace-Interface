@@ -50,26 +50,35 @@ export const Home = () => {
           fontWeight={600}
           fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
         >
-          <Text
-            as={"span"}
-            position={"relative"}
-            _after={{
-              content: "''",
-              width: "full",
-              height: "30%",
-              position: "absolute",
-              bottom: 1,
-              left: 0,
-              bg: "green.400",
-              zIndex: -1,
-            }}
-          >
+          <Text as={"span"} position={"relative"}>
+            <motion.div
+              style={{
+                width: "100%",
+                height: "30%",
+                position: "absolute",
+                bottom: 5,
+                left: 0,
+                backgroundColor: "#48BB78",
+                zIndex: -1,
+              }}
+              initial={{ x: -1000 }}
+              animate={{ x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Box></Box>
+            </motion.div>
             Un CrazyPunk
           </Text>
           <br />
-          <Text as={"span"} color={"white"}>
-            nunca para de aprender
-          </Text>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.7 }}
+          >
+            <Text as={"span"} color={"white"}>
+              nunca para de aprender
+            </Text>
+          </motion.div>
         </Heading>
         <Text color={"gray.500"} textAlign={"center"}>
           Platzi Punks es una colección de Avatares randomizados cuya metadata
@@ -124,21 +133,36 @@ export const Home = () => {
           }}
         >
           <Stack spacing={6} direction={"row"}>
-            <Image src={Avatar1} w={"3xs"} h={"2xs"} pb={10} />
-            <motion.div initial={true} animate={{ x: 100 }}>
+            <motion.div
+              initial={{ y: 120, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+            >
+              <Image src={Avatar1} w={"3xs"} h={"2xs"} pb={10} />
+            </motion.div>
+            <motion.div
+              initial={{ y: 120, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+            >
               <Image src={Avatar2} pb={10} w={"3xs"} h={"2xs"} />
             </motion.div>
           </Stack>
-          <Image
-            w={"1xs"}
-            h={"1xs"}
-            src={"https://avataaars.io/"}
+          <Box
             position={"absolute"}
             top={0}
             left={"50%"}
             transform={"translateX(-50%)"}
             zIndex={"2"}
-          />
+          >
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.7 }}
+            >
+              <Image w={"1xs"} h={"1xs"} src={"https://avataaars.io/"} />
+            </motion.div>
+          </Box>
         </Box>
         {active ? (
           <>
