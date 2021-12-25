@@ -1,6 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
+import { getTruncateAddress } from "../Utils/Index";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useCrazyPunks from "../Hooks/useCrazyPunks";
 //Components
 import {
@@ -18,22 +19,30 @@ import Avatar1 from "../assets/avatar1.png";
 import Avatar2 from "../assets/avatar2.png";
 
 export const Home = () => {
-  const { active } = useWeb3React();
-  const [maxSupply, setMaxSupply] = useState<number>(0);
+  const { active, account } = useWeb3React();
+  const [supplyInfo, setSupplyInfo] = useState<Partial<TSupplyInfo>>({});
+  const [imageSrc, setImageSrc] = useState<string>("");
   const CrazyPunks = useCrazyPunks();
 
-  const getMaxSupply = async () => {
+  const getCrazyPunkData = useCallback(async () => {
     if (CrazyPunks) {
-      const result = await CrazyPunks.methods.maxSupply().call();
+      const maxSupply = await CrazyPunks.methods.maxSupply().call();
+      const currSupply = await CrazyPunks.methods.totalSupply().call();
+      const dnaPreview = await CrazyPunks.methods
+        .generatePseudoRandomDNA(currSupply, account)
+        .call();
+      const imageURL: string = await CrazyPunks.methods
+        .getImageURI(dnaPreview)
+        .call();
 
-      console.log(result);
-      setMaxSupply(result);
+      setSupplyInfo({ currSupply, maxSupply });
+      setImageSrc(imageURL);
     }
-  };
+  }, [CrazyPunks]);
 
   useEffect(() => {
-    getMaxSupply();
-  }, [active]);
+    getCrazyPunkData();
+  }, [getCrazyPunkData]);
 
   return (
     <Stack
@@ -90,18 +99,28 @@ export const Home = () => {
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}
           >
-            <Button
-              rounded={"full"}
-              size={"lg"}
-              fontWeight={"normal"}
-              px={6}
-              colorScheme={"green"}
-              bg={"green.400"}
-              _hover={{ bg: "green.500" }}
-              disabled={!CrazyPunks}
-            >
-              Obtén tu punk
-            </Button>
+            <Stack spacing={2}>
+              <Button
+                rounded={"full"}
+                size={"lg"}
+                fontWeight={"normal"}
+                px={6}
+                colorScheme={"green"}
+                bg={"green.400"}
+                _hover={{ bg: "green.500" }}
+                disabled={!CrazyPunks}
+              >
+                Obtén tu punk
+              </Button>
+              <Text
+                fontSize="sm"
+                fontWeight="bold"
+                textAlign="center"
+                color={"white"}
+              >
+                Solo quedan {supplyInfo.maxSupply! - supplyInfo.currSupply!}
+              </Text>
+            </Stack>
             <Link to="/punks">
               <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6}>
                 Galería
@@ -150,7 +169,7 @@ export const Home = () => {
           </Stack>
           <Box
             position={"absolute"}
-            top={0}
+            top={10}
             left={"50%"}
             transform={"translateX(-50%)"}
             zIndex={"2"}
@@ -160,27 +179,38 @@ export const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.7 }}
             >
-              <Image w={"1xs"} h={"1xs"} src={"https://avataaars.io/"} />
+              <Image
+                w={"1xs"}
+                h={"1xs"}
+                src={active ? imageSrc : "https://avataaars.io/"}
+              />
             </motion.div>
           </Box>
         </Box>
         {active ? (
           <>
-            <Flex mt={10}>
+            <Flex mt={50}>
               <Badge>
                 Next ID:
                 <Badge ml={1} colorScheme="green">
-                  1
+                  {supplyInfo.currSupply}
                 </Badge>
               </Badge>
               <Badge ml={2}>
                 Address:
                 <Badge ml={1} colorScheme="green">
-                  0x0000...0000
+                  {active
+                    ? getTruncateAddress(account as string)
+                    : "0x0000...0000"}
                 </Badge>
               </Badge>
             </Flex>
-            <Button onClick={() => {}} mt={4} size="xs" colorScheme="green">
+            <Button
+              onClick={getCrazyPunkData}
+              mt={4}
+              size="xs"
+              colorScheme="green"
+            >
               Actualizar
             </Button>
           </>
