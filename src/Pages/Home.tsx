@@ -13,15 +13,18 @@ import {
   Button,
   Image,
   Badge,
+  useToast,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Avatar1 from "../assets/avatar1.png";
 import Avatar2 from "../assets/avatar2.png";
 
 export const Home = () => {
+  const showToast = useToast({ position: "top" });
   const { active, account } = useWeb3React();
   const [supplyInfo, setSupplyInfo] = useState<Partial<TSupplyInfo>>({});
   const [imageSrc, setImageSrc] = useState<string>("");
+  const [isMinting, setIsMiting] = useState<boolean>(false);
   const CrazyPunks = useCrazyPunks();
 
   const getCrazyPunkData = useCallback(async () => {
@@ -39,6 +42,41 @@ export const Home = () => {
       setImageSrc(imageURL);
     }
   }, [CrazyPunks]);
+
+  const mintCrazyPunk = () => {
+    setIsMiting(true);
+
+    CrazyPunks.methods
+      .mintToken()
+      .send({ from: account, value: 1e18 })
+      .on("transactionHash", (txHash: string) => {
+        setIsMiting(false);
+        showToast({
+          status: "info",
+          title: "Transaccion enviada",
+          description: txHash,
+        });
+      })
+      .on("receipt", () => {
+        setIsMiting(false);
+        showToast({
+          status: "success",
+          title: "Transaccion confirmada",
+          description: "Rock your CrazyPunk!",
+          variant: "top-accent",
+        });
+        getCrazyPunkData();
+      })
+      .on("error", (error: any) => {
+        console.log(error);
+        setIsMiting(false);
+        showToast({
+          status: "error",
+          title: "Transaccion fallida :(",
+          description: error.message,
+        });
+      });
+  };
 
   useEffect(() => {
     getCrazyPunkData();
@@ -73,9 +111,7 @@ export const Home = () => {
               initial={{ x: -1000 }}
               animate={{ x: 0 }}
               transition={{ duration: 0.8 }}
-            >
-              <Box></Box>
-            </motion.div>
+            ></motion.div>
             Un CrazyPunk
           </Text>
           <br />
@@ -108,9 +144,11 @@ export const Home = () => {
                 colorScheme={"green"}
                 bg={"green.400"}
                 _hover={{ bg: "green.500" }}
+                onClick={mintCrazyPunk}
                 disabled={!CrazyPunks}
+                isLoading={isMinting}
               >
-                Obtén tu punk
+                Obtén tu CrazyPunk
               </Button>
               <Text
                 fontSize="sm"
@@ -118,7 +156,10 @@ export const Home = () => {
                 textAlign="center"
                 color={"white"}
               >
-                Solo quedan {supplyInfo.maxSupply! - supplyInfo.currSupply!}
+                {active &&
+                  `Solo quedan ${
+                    supplyInfo.maxSupply! - supplyInfo.currSupply!
+                  }`}
               </Text>
             </Stack>
             <Link to="/punks">
@@ -137,20 +178,23 @@ export const Home = () => {
         position={"relative"}
         w={"full"}
       >
-        <Box
-          position={"relative"}
-          _after={{
-            content: "''",
-            borderRadius: "50%",
-            position: "absolute",
-            top: -70,
-            zIndex: 1,
-            width: "100%",
-            height: "140%",
-            background:
-              "radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(246,246,246,0) 80%)",
-          }}
-        >
+        <Box position={"relative"}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 1.6 }}
+            style={{
+              content: "''",
+              borderRadius: "50%",
+              position: "absolute",
+              top: -70,
+              zIndex: 1,
+              width: "100%",
+              height: "140%",
+              background:
+                "radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(246,246,246,0) 80%)",
+            }}
+          ></motion.div>
           <Stack spacing={6} direction={"row"}>
             <motion.div
               initial={{ y: 120, opacity: 0 }}
