@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 // import { connector } from "./Config/Web3/Index";
 
 import { Home } from "./Pages/Home";
+import { Gallery } from "./Pages/Gallery";
 import Layout from "./Layout/Index";
 
 export const App = () => {
@@ -18,6 +19,7 @@ export const App = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/collection" element={<Gallery />} />
         </Routes>
       </Layout>
     </BrowserRouter>

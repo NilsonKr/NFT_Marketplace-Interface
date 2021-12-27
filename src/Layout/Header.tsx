@@ -4,6 +4,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { connector } from "../Config/Web3/Index";
 import { getTruncateAddress } from "../Utils/Index";
 //Components
+import { ConnectBtn } from "../Components/Index";
 import {
   Box,
   Text,
@@ -63,7 +64,9 @@ export const Header = () => {
       boxShadow={"0 4px 8px rgba(0,0,0,.09)"}
     >
       <Flex align={"center"}>
-        <Image marginRight="35px" src={Logo} alt="CrazyPunks" />
+        <RouterLink to="/">
+          <Image marginRight="35px" src={Logo} alt="CrazyPunks" />
+        </RouterLink>
         <Text className="navTab" fontWeight={"500"} fontSize={"lg"}>
           <Link
             _hover={{
@@ -109,16 +112,7 @@ export const Header = () => {
             <TagCloseButton onClick={disconnect} />
           </Tag>
         ) : (
-          <Button
-            variant={"solid"}
-            colorScheme={"green"}
-            size={"sm"}
-            leftIcon={<AddIcon />}
-            onClick={connect}
-            disabled={isUnsupportedChain}
-          >
-            {isUnsupportedChain ? "Red no soportada" : "Conectar wallet"}
-          </Button>
+          <ConnectBtn error={isUnsupportedChain} connect={connect} />
         )}
       </Flex>
     </Box>
