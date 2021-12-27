@@ -14,7 +14,9 @@ export const Gallery = () => {
       overflowY="scroll"
       m="20px auto 0"
       w="80%"
-      templateColumns="repeat(auto-fill,minMax(250px, 1fr))"
+      py={6}
+      justifyContent="center"
+      templateColumns="repeat(auto-fill,minMax(250px, 320px))"
       gap={8}
     >
       <PunkCard image="https://avataaars.io/" name="CrazyPunk" />
