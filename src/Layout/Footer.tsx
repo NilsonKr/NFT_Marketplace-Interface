@@ -1,11 +1,10 @@
 import { useLocation } from "react-router-dom";
-import { Box, Flex, Text, Link, Divider, Center } from "@chakra-ui/react";
+import { Box, Flex, Text, Link, Divider } from "@chakra-ui/react";
 import { ReactComponent as Wave } from "../assets/Wave.svg";
 
 export const Footer = () => {
   const location = useLocation();
   const isHome = location.pathname === "/";
-  console.log(location);
 
   return (
     <footer className="footer">

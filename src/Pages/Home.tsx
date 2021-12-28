@@ -22,10 +22,10 @@ import Avatar2 from "../assets/avatar2.png";
 export const Home = () => {
   const showToast = useToast({ position: "top" });
   const { active, account } = useWeb3React();
-  const [supplyInfo, setSupplyInfo] = useState<Partial<TSupplyInfo>>({});
-  const [imageSrc, setImageSrc] = useState<string>("");
-  const [isMinting, setIsMiting] = useState<boolean>(false);
   const CrazyPunks = useCrazyPunks();
+  const [supplyInfo, setSupplyInfo] = useState<Partial<TSupplyInfo>>({});
+  const [isMinting, setIsMiting] = useState<boolean>(false);
+  const [imageSrc, setImageSrc] = useState<string>("");
 
   const getCrazyPunkData = useCallback(async () => {
     if (CrazyPunks) {
@@ -41,14 +41,14 @@ export const Home = () => {
       setSupplyInfo({ currSupply, maxSupply });
       setImageSrc(imageURL);
     }
-  }, [CrazyPunks]);
+  }, [CrazyPunks, account]);
 
   const mintCrazyPunk = () => {
     setIsMiting(true);
 
     CrazyPunks.methods
       .mintToken()
-      .send({ from: account, value: 1e18 })
+      .send({ from: account })
       .on("transactionHash", (txHash: string) => {
         setIsMiting(false);
         showToast({

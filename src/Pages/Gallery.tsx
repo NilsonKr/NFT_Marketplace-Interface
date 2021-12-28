@@ -1,6 +1,6 @@
 // import {} from "react";
 import { useWeb3React } from "@web3-react/core";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import { PunkCard, Loading, RequestAccess } from "../Components/Index";
 
 export const Gallery = () => {

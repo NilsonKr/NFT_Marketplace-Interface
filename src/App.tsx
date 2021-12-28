@@ -1,18 +1,17 @@
-// import { useEffect } from "react";
-// import { useWeb3React } from "@web3-react/core";
+import { useEffect } from "react";
+import { useWallet } from "./Hooks/useWallet";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-// import { connector } from "./Config/Web3/Index";
 
 import { Home } from "./Pages/Home";
 import { Gallery } from "./Pages/Gallery";
 import Layout from "./Layout/Index";
 
 export const App = () => {
-  // const { active, activate, account } = useWeb3React();
+  const { connect } = useWallet();
 
-  // useEffect(() => {
-  //   activate(connector).then(console.log);
-  // }, [activate]);
+  useEffect(() => {
+    if (localStorage.getItem("isConnected") === "true") connect();
+  }, [connect]);
 
   return (
     <BrowserRouter>

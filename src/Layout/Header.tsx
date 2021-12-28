@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 import { Link as RouterLink } from "react-router-dom";
-import { connector } from "../Config/Web3/Index";
+import { useWallet } from "../Hooks/useWallet";
 import { getTruncateAddress } from "../Utils/Index";
 //Components
 import { ConnectBtn } from "../Components/Index";
@@ -12,32 +12,19 @@ import {
   Image,
   Flex,
   Badge,
-  Button,
   Tag,
   TagLabel,
   TagCloseButton,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
 
 import Logo from "../assets/Logo.svg";
 
 export const Header = () => {
   const [balance, setBalance] = useState<number | string>("");
-  const { activate, deactivate, active, account, error, library } =
-    useWeb3React();
+  const { active, connect, disconnect, error } = useWallet();
+  const { account, library } = useWeb3React();
 
   const isUnsupportedChain = error instanceof UnsupportedChainIdError;
-
-  const connect = useCallback(() => {
-    activate(connector).then(() => {
-      localStorage.setItem("isConnected", "true");
-    });
-  }, [activate]);
-
-  const disconnect = () => {
-    deactivate();
-    localStorage.removeItem("isConnected");
-  };
 
   const getBalance = useCallback(async () => {
     const balance = await library.eth.getBalance(account);
@@ -46,10 +33,6 @@ export const Header = () => {
 
     return balance;
   }, [account, library?.eth]);
-
-  useEffect(() => {
-    if (localStorage.getItem("isConnected") === "true") connect();
-  }, [connect]);
 
   useEffect(() => {
     if (account) getBalance();
