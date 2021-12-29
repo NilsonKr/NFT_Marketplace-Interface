@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import { Home } from "./Pages/Home";
 import { Gallery } from "./Pages/Gallery";
+import { Punk } from "./Pages/Punk";
 import Layout from "./Layout/Index";
 
 export const App = () => {
@@ -19,6 +20,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/collection" element={<Gallery />} />
+          <Route path="/crazypunk/:punkId" element={<Punk />} />
         </Routes>
       </Layout>
     </BrowserRouter>

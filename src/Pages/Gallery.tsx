@@ -1,4 +1,4 @@
-// import {} from "react";
+import { Link } from "react-router-dom";
 import { useCollectionData } from "../Hooks/usePunkData";
 import { useWeb3React } from "@web3-react/core";
 import { Grid } from "@chakra-ui/react";
@@ -24,7 +24,14 @@ export const Gallery = () => {
       gap={8}
     >
       {list.map((punk) => (
-        <PunkCard tokenId={punk.tokenId} image={punk.image} name={punk.name} />
+        <Link to={`/crazypunk/${punk.tokenId}`}>
+          <PunkCard
+            tokenId={punk.tokenId}
+            image={punk.image}
+            name={punk.name}
+            opensea={true}
+          />
+        </Link>
       ))}
     </Grid>
   );
