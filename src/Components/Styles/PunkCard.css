@@ -1,0 +1,18 @@
+.opensea-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.openseaText {
+  font-weight: 600;
+  transition: all 1s ease;
+  color: black;
+  position: absolute;
+  right: -70%;
+  z-index: -1;
+  transform: translateX(50%);
+}
+
+.opensea-container:hover .openseaText {
+  transform: translateX(-52%);
+}

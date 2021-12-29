@@ -6,12 +6,17 @@ import {
   Image,
   Square,
   Text,
+  Link,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
+import "./Styles/PunkCard.css";
 
-type Props = { image: string; name: string };
+type Props = { tokenId: number; image: string; name: string };
 
-export const PunkCard = ({ image, name, ...props }: Props) => {
+const GalleryURL =
+  "https://testnets.opensea.io/assets/0x412e1b9dfc2d8d3d09044871224f7d02ebdcf691/";
+
+export const PunkCard = ({ tokenId, image, name, ...props }: Props) => {
   return (
     <Box
       role={"group"}
@@ -60,41 +65,34 @@ export const PunkCard = ({ image, name, ...props }: Props) => {
         />
       </Box>
       <Stack pt={10} direction="row" justify="space-between" align="center">
-        <Heading ml={6} fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
+        <Heading ml={6} fontSize={"lg"} fontFamily={"body"} fontWeight={500}>
           {name}
         </Heading>
         {/* role="group" overflow="hidden" */}
-        <Square
-          position="relative"
-          cursor="pointer"
-          size="40px"
-          justifyContent="start"
-          w={14}
-          bg="white"
+        <Link
+          _focus={{ boxShadow: "unset" }}
+          href={GalleryURL + tokenId}
+          target="_blank"
+          isExternal
         >
-          <ViewIcon
-            _hover={{ color: "green.200" }}
-            h={6}
-            w={6}
-            color="gray.200"
-          />
-          <Text
-            fontSize="xs"
-            fontWeight="semibold"
-            transition="all 1s ease"
-            color="black"
-            position="absolute"
-            w="32"
-            right="-70%"
-            zIndex={-1}
-            transform="translateX(50%)"
-            _groupHover={{
-              transform: "translateX(-55%)",
-            }}
+          <Square
+            className="opensea-container"
+            size="40px"
+            justifyContent="start"
+            w={14}
+            bg="white"
           >
-            See on OpenSea
-          </Text>
-        </Square>
+            <ViewIcon
+              _hover={{ color: "green.200" }}
+              h={6}
+              w={6}
+              color="gray.200"
+            />
+            <Text className="openseaText" fontSize="xs" w="32">
+              See on OpenSea
+            </Text>
+          </Square>
+        </Link>
       </Stack>
     </Box>
   );
