@@ -93,7 +93,7 @@ export const Punk = () => {
           </Flex>
         </LinkBox>
       </Stack>
-      <Stack width="100%" spacing={5}>
+      <Stack width="100%" spacing={5} pr={4}>
         <Heading>{punk.name}</Heading>
         <Text fontSize="xl">{punk.description}</Text>
         <Text fontWeight={600}>

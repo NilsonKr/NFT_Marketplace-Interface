@@ -1,3 +1,4 @@
+import { Link as RouterLink } from "react-router-dom";
 import {
   Box,
   useColorModeValue,
@@ -38,39 +39,46 @@ export const PunkCard = ({ tokenId, image, name, style, opensea }: Props) => {
       zIndex={1}
       {...style}
     >
-      <Box
-        w="80%"
-        m="0 auto"
-        rounded={"lg"}
-        pos={"relative"}
-        height={"230px"}
-        _after={{
-          transition: "all .3s ease",
-          content: '""',
-          w: "full",
-          h: "full",
-          pos: "absolute",
-          top: 0,
-          left: 0,
-          backgroundImage: `url(${image})`,
-          filter: "blur(15px)",
-          zIndex: -1,
-        }}
-        _groupHover={{
-          _after: {
-            filter: "blur(20px)",
-          },
-        }}
-      >
-        <Image
+      <Link to={`/crazypunk/${tokenId}`} as={RouterLink}>
+        <Box
+          w="80%"
+          m="0 auto"
           rounded={"lg"}
-          height={230}
-          width={250}
-          objectFit={"cover"}
-          src={image}
-        />
-      </Box>
-      <Stack pt={10} direction="row" justify="space-between" align="center">
+          pos={"relative"}
+          height={"230px"}
+          _after={{
+            transition: "all .3s ease",
+            content: '""',
+            w: "full",
+            h: "full",
+            pos: "absolute",
+            top: 0,
+            left: 0,
+            backgroundImage: `url(${image})`,
+            filter: "blur(15px)",
+            zIndex: -1,
+          }}
+          _groupHover={{
+            _after: {
+              filter: "blur(20px)",
+            },
+          }}
+        >
+          <Image
+            rounded={"lg"}
+            height={230}
+            width={250}
+            objectFit={"cover"}
+            src={image}
+          />
+        </Box>
+      </Link>
+      <Stack
+        pt={10}
+        direction="row"
+        justify={Boolean(opensea) ? "space-between" : "center"}
+        align="center"
+      >
         <Heading ml={6} fontSize={"lg"} fontFamily={"body"} fontWeight={500}>
           {name}
         </Heading>

@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
-import { Link as RouterLink } from "react-router-dom";
+import { NavLink as RouterLink } from "react-router-dom";
 import { useWallet } from "../Hooks/useWallet";
 import { getTruncateAddress } from "../Utils/Index";
 //Components
@@ -18,6 +18,11 @@ import {
 } from "@chakra-ui/react";
 
 import Logo from "../assets/Logo.svg";
+
+const activeStyle = {
+  color: "white",
+  backgroundColor: "#8effd6",
+};
 
 export const Header = () => {
   const [balance, setBalance] = useState<number | string>("");
@@ -50,30 +55,32 @@ export const Header = () => {
         <RouterLink to="/">
           <Image marginRight="35px" src={Logo} alt="CrazyPunks" />
         </RouterLink>
-        <Text className="navTab" fontWeight={"500"} fontSize={"lg"}>
-          <Link
-            _hover={{
-              borderBottom: "0px",
-              color: "black",
-            }}
-            as={RouterLink}
-            to="/"
-          >
+        <RouterLink
+          className="navTab"
+          style={({ isActive }) => (isActive ? activeStyle : {})}
+          // _hover={{
+          //   borderBottom: "0px",
+          //   color: "black",
+          // }}
+          to="/"
+        >
+          <Text fontWeight={"500"} fontSize={"lg"}>
             Home
-          </Link>
-        </Text>
-        <Text className="navTab" fontWeight={"500"} fontSize={"lg"}>
-          <Link
-            _hover={{
-              borderBottom: "0px",
-              color: "black",
-            }}
-            as={RouterLink}
-            to="/collection"
-          >
+          </Text>
+        </RouterLink>
+        <RouterLink
+          style={({ isActive }) => (isActive ? activeStyle : {})}
+          className="navTab"
+          // _hover={{
+          //   borderBottom: "0px",
+          //   color: "black",
+          // }}
+          to="/collection"
+        >
+          <Text fontWeight={"500"} fontSize={"lg"}>
             Punks
-          </Link>
-        </Text>
+          </Text>
+        </RouterLink>
       </Flex>
       <Flex alignItems={"center"}>
         {active ? (

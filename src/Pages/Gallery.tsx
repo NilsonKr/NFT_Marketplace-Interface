@@ -23,15 +23,14 @@ export const Gallery = () => {
       templateColumns="repeat(auto-fill,minMax(250px, 320px))"
       gap={8}
     >
-      {list.map((punk) => (
-        <Link to={`/crazypunk/${punk.tokenId}`}>
-          <PunkCard
-            tokenId={punk.tokenId}
-            image={punk.image}
-            name={punk.name}
-            opensea={true}
-          />
-        </Link>
+      {list.map((punk, i) => (
+        <PunkCard
+          key={i}
+          tokenId={punk.tokenId}
+          image={punk.image}
+          name={punk.name}
+          opensea={true}
+        />
       ))}
     </Grid>
   );

@@ -84,6 +84,7 @@ export const Home = () => {
 
   return (
     <Stack
+      minH="80vh"
       align={"center"}
       spacing={{ base: 8, md: 10 }}
       px={{ md: 2, lg: 8 }}

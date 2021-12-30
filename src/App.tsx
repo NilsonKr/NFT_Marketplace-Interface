@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useWallet } from "./Hooks/useWallet";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -19,7 +20,18 @@ export const App = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/collection" element={<Gallery />} />
+          <Route
+            path="/collection"
+            element={
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: "0" }}
+                transition={{ duration: 0.4 }}
+              >
+                <Gallery />
+              </motion.div>
+            }
+          />
           <Route path="/crazypunk/:punkId" element={<Punk />} />
         </Routes>
       </Layout>
