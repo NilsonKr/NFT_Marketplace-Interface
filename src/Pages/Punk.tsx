@@ -102,10 +102,10 @@ export const Punk = () => {
             />
             <Button
               onClick={() => setTransfer(true)}
-              disabled={false}
+              disabled={account !== Punk.owner}
               colorScheme="green"
             >
-              Transfer
+              {account === Punk.owner ? "Transfer" : "You're not the owner"}
             </Button>
             <LinkBox>
               <Flex
