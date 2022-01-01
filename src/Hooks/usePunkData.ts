@@ -1,4 +1,3 @@
-import { useWeb3React } from "@web3-react/core";
 import { useState, useCallback, useEffect } from "react";
 import { Contract } from "web3-eth-contract";
 import useCrazyPunks from "./useCrazyPunks";
@@ -25,8 +24,7 @@ type TReturnHook = {
   loading: boolean;
   list?: TGalleryPunks;
   Punk?: Partial<TPunk>;
-  fetchGallery?: () => Promise<void>;
-  fetchPunk?: () => Promise<void>;
+  refresh: () => Promise<void>;
 };
 
 export const useCollectionData = (): TReturnHook => {
@@ -56,7 +54,7 @@ export const useCollectionData = (): TReturnHook => {
     fetchGallery();
   }, [fetchGallery]);
 
-  return { loading, list, fetchGallery };
+  return { loading, list, refresh: fetchGallery };
 };
 
 const getAttributes = async (
@@ -129,11 +127,11 @@ export const usePunkData = (tokendId: number): TReturnHook => {
       setData({ ...punk, DNA, ...attrs });
       setLoading(false);
     }
-  }, [CrazyPunks]);
+  }, [CrazyPunks, tokendId]);
 
   useEffect(() => {
     fetchPunk();
   }, [fetchPunk]);
 
-  return { Punk: data, loading, fetchPunk };
+  return { Punk: data, loading, refresh: fetchPunk };
 };

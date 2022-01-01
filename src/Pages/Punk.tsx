@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePunkData } from "../Hooks/usePunkData";
 import { useWeb3React } from "@web3-react/core";
+import useCrazyPunks from "../Hooks/useCrazyPunks";
 //Components
 import {
   LinkBox,
@@ -24,34 +25,11 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+  useToast,
 } from "@chakra-ui/react";
 import { ReactComponent as OpenSeaIcon } from "../assets/OpenSea.svg";
 import { PunkCard } from "../Components/PunkCard";
-import { Loading, RequestAccess } from "../Components/Index";
-
-const punk = {
-  tokenId: 0,
-  name: "CrazyPunk #0",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  image: "https://avataaars.io/",
-  owner: "0x0000000000000000000000000000000000000000",
-  dna: "0x0000000000000000000000000000000000000000",
-  attributes: {
-    accessoriesType: "",
-    clotheColor: "",
-    clotheType: "",
-    eyeType: "",
-    eyebrowType: "",
-    facialHairColor: "",
-    facialHairType: "",
-    hairColor: "",
-    hatColor: "",
-    mouthType: "",
-    skinColor: "",
-    graphicType: "",
-  },
-};
+import { Loading, RequestAccess, TransferModal } from "../Components/Index";
 
 type Params = Record<string, string | undefined>;
 
@@ -59,9 +37,44 @@ const GalleryURL =
   "https://testnets.opensea.io/assets/0x412e1b9dfc2d8d3d09044871224f7d02ebdcf691/";
 
 export const Punk = () => {
-  const { active } = useWeb3React();
+  const { active, account } = useWeb3React();
   const { punkId } = useParams<Params>();
-  const { Punk, loading } = usePunkData(parseInt(punkId as string));
+  const { Punk, loading, refresh } = usePunkData(parseInt(punkId as string));
+  const CrazyPunks = useCrazyPunks();
+  const [isTransfer, setTransfer] = useState(false);
+  const showToast = useToast();
+
+  const handleTransfer = (address: string, close: () => void) => {
+    CrazyPunks.methods
+      .safeTransferFrom(account, address, Punk!.tokenId)
+      .send({ from: account })
+      .on("transactionHash", (hash: string) => {
+        showToast({
+          status: "info",
+          title: "Transfer sent",
+          description: hash,
+        });
+        close();
+      })
+      .on("receipt", (receipt: any) => {
+        console.log(receipt);
+        showToast({
+          status: "success",
+          title: "Transaction confirmed",
+          description: "Transfer successful",
+          variant: "top-accent",
+        });
+        refresh();
+      })
+      .on("error", (error: Error) => {
+        console.log(error);
+        showToast({
+          status: "error",
+          title: "Transfer failed",
+          description: error.message,
+        });
+      });
+  };
 
   if (!active) return <RequestAccess />;
 
@@ -87,8 +100,12 @@ export const Punk = () => {
               image={Punk.image as string}
               opensea={false}
             />
-            <Button disabled={false} colorScheme="green">
-              Transferir
+            <Button
+              onClick={() => setTransfer(true)}
+              disabled={false}
+              colorScheme="green"
+            >
+              Transfer
             </Button>
             <LinkBox>
               <Flex
@@ -140,8 +157,8 @@ export const Punk = () => {
                   <Table size="sm" variant="simple">
                     <Thead>
                       <Tr>
-                        <Th>Atributo</Th>
-                        <Th>Valor</Th>
+                        <Th>Attribute</Th>
+                        <Th>Value</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
@@ -161,6 +178,11 @@ export const Punk = () => {
           </Stack>
         </Stack>
       )}
+      <TransferModal
+        transfer={handleTransfer}
+        setClose={() => setTransfer(false)}
+        open={isTransfer}
+      />
     </>
   );
 };

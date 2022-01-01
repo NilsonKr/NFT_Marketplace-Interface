@@ -82,7 +82,6 @@ export const PunkCard = ({ tokenId, image, name, style, opensea }: Props) => {
         <Heading ml={6} fontSize={"lg"} fontFamily={"body"} fontWeight={500}>
           {name}
         </Heading>
-        {/* role="group" overflow="hidden" */}
         {opensea && (
           <Link
             _focus={{ boxShadow: "unset" }}

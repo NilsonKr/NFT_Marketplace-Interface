@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useCollectionData } from "../Hooks/usePunkData";
 import { useWeb3React } from "@web3-react/core";
 import { Grid } from "@chakra-ui/react";

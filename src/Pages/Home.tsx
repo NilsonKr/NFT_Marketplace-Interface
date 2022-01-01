@@ -122,14 +122,14 @@ export const Home = () => {
             transition={{ duration: 0.4, delay: 0.7 }}
           >
             <Text as={"span"} color={"white"}>
-              nunca para de aprender
+              Placeholder text
             </Text>
           </motion.div>
         </Heading>
         <Text color={"gray.500"} textAlign={"center"}>
-          Platzi Punks es una colección de Avatares randomizados cuya metadata
-          es almacenada on-chain. Poseen características únicas y sólo hay 10000
-          en existencia.
+          Crazy Punks es una colección de Avatares randomizados cuya metadata es
+          almacenada on-chain. Poseen características únicas y sólo hay 10000 en
+          existencia.
         </Text>
         <Flex justify={"center"}>
           <Stack
