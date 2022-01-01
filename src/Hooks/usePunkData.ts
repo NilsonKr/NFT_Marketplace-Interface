@@ -21,18 +21,20 @@ const getPunkData = async (
   };
 };
 
-type TGalleryHook = {
+type TReturnHook = {
   loading: boolean;
-  list: TGalleryPunks;
-  fetchPunks: () => Promise<void>;
+  list?: TGalleryPunks;
+  Punk?: Partial<TPunk>;
+  fetchGallery?: () => Promise<void>;
+  fetchPunk?: () => Promise<void>;
 };
 
-export const useCollectionData = (): TGalleryHook => {
+export const useCollectionData = (): TReturnHook => {
   const [list, setList] = useState<TGalleryPunks>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const CrazyPunks = useCrazyPunks();
 
-  const fetchPunks = useCallback(async () => {
+  const fetchGallery = useCallback(async () => {
     if (CrazyPunks) {
       setLoading(true);
 
@@ -51,8 +53,87 @@ export const useCollectionData = (): TGalleryHook => {
   }, [CrazyPunks]);
 
   useEffect(() => {
-    fetchPunks();
-  }, [fetchPunks]);
+    fetchGallery();
+  }, [fetchGallery]);
 
-  return { loading, list, fetchPunks };
+  return { loading, list, fetchGallery };
+};
+
+const getAttributes = async (
+  CrazyPunks: Contract,
+  DNA: string
+): Promise<TAttributes> => {
+  const [
+    accessoriesType,
+    clotheColor,
+    clotheType,
+    eyeType,
+    eyebrowType,
+    facialHairColor,
+    facialHairType,
+    hairColor,
+    hatColor,
+    mouthType,
+    skinColor,
+    topType,
+    graphicType,
+  ]: string[] = await Promise.all([
+    CrazyPunks.methods.getAccessoriesType(DNA).call(),
+    CrazyPunks.methods.getClotheColor(DNA).call(),
+    CrazyPunks.methods.getClotheType(DNA).call(),
+    CrazyPunks.methods.getEyeType(DNA).call(),
+    CrazyPunks.methods.getEyeBrowType(DNA).call(),
+    CrazyPunks.methods.getFacialHairColor(DNA).call(),
+    CrazyPunks.methods.getFacialHairType(DNA).call(),
+    CrazyPunks.methods.getHairColor(DNA).call(),
+    CrazyPunks.methods.getHatColor(DNA).call(),
+    CrazyPunks.methods.getMouthType(DNA).call(),
+    CrazyPunks.methods.getSkinColor(DNA).call(),
+    CrazyPunks.methods.getTopType(DNA).call(),
+    CrazyPunks.methods.getGraphicType(DNA).call(),
+  ]);
+
+  return {
+    attributes: {
+      accessoriesType,
+      clotheColor,
+      clotheType,
+      eyeType,
+      eyebrowType,
+      facialHairColor,
+      facialHairType,
+      hairColor,
+      hatColor,
+      mouthType,
+      skinColor,
+      topType,
+      graphicType,
+    },
+  };
+};
+
+export const usePunkData = (tokendId: number): TReturnHook => {
+  const [data, setData] = useState<Partial<TPunk>>({});
+  const [loading, setLoading] = useState<boolean>(false);
+  const CrazyPunks = useCrazyPunks();
+
+  const fetchPunk = useCallback(async () => {
+    if (CrazyPunks) {
+      setLoading(true);
+      const punk = await getPunkData(CrazyPunks, tokendId);
+      const DNA = await CrazyPunks.methods
+        .generatePseudoRandomDNA(tokendId, punk.owner)
+        .call();
+      const attrs = await getAttributes(CrazyPunks, DNA);
+
+      setData({ ...punk, DNA, ...attrs });
+      setLoading(false);
+    }
+  }, [CrazyPunks]);
+
+  useEffect(() => {
+    fetchPunk();
+  }, [fetchPunk]);
+
+  return { Punk: data, loading, fetchPunk };
 };

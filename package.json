@@ -1,6 +1,7 @@
 {
   "name": "nft_marketplace-interface",
   "version": "0.1.0",
+  "repository": "https://github.com/NilsonKr/NFT_Marketplace-Interface",
   "private": true,
   "resolutions": {
     "react-error-overlay": "6.0.9"

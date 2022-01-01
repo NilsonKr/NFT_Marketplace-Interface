@@ -23,7 +23,7 @@ export const Gallery = () => {
       templateColumns="repeat(auto-fill,minMax(250px, 320px))"
       gap={8}
     >
-      {list.map((punk, i) => (
+      {list!.map((punk, i) => (
         <PunkCard
           key={i}
           tokenId={punk.tokenId}

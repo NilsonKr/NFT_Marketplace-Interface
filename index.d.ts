@@ -8,13 +8,19 @@ type TSupplyInfo = {
   currSupply: number;
   maxSupply: number;
 };
-type TPunk = {
+
+interface TAttributes {
+  attributes: Record<string, string>;
+}
+
+interface TPunk extends TAttributes {
   owner: string;
   tokenId: number;
   image: string;
   description: string;
   name: string;
-};
+  DNA?: string;
+}
 
 type TGalleryPunks = TPunk[];
 
