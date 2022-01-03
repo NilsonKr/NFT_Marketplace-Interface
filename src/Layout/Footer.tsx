@@ -21,14 +21,30 @@ export const Footer = () => {
               px={24}
             >
               <Text color="gray.500" zIndex={1}>
-                Made with 💚 by NilsonKr
+                Made with 💚 by
+                <Link
+                  target="_blank"
+                  href="https://github.com/NilsonKr"
+                  ml={1}
+                  color="green.400"
+                >
+                  NilsonKr
+                </Link>
               </Text>
               <Text color="gray.500" zIndex={1}>
-                <Link href="https://getavataaars.com" color="green.400">
+                <Link
+                  target="_blank"
+                  href="https://getavataaars.com"
+                  color="green.400"
+                >
                   Avatars
                 </Link>{" "}
                 Designed by{" "}
-                <Link href="https://twitter.com/pablostanley" color="green.400">
+                <Link
+                  target="_blank"
+                  href="https://twitter.com/pablostanley"
+                  color="green.400"
+                >
                   Pablo Stanley 🎨
                 </Link>
               </Text>

@@ -27,7 +27,11 @@ type TProps = {
 
 export const TransferModal = ({ setClose, open, transfer }: TProps) => {
   const { library, account } = useWeb3React();
-  const showToast = useToast({ position: "top-right", variant: "top-accent" });
+  const showToast = useToast({
+    isClosable: true,
+    position: "top-right",
+    variant: "top-accent",
+  });
   const [address, setAddress] = useState<string>("");
   const [formError, setFormError] = useState<boolean>(false);
   const dialogRef = useRef(null);
