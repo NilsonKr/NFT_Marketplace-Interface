@@ -27,7 +27,7 @@ type TReturnHook = {
   refresh: () => Promise<void>;
 };
 
-export const useCollectionData = (): TReturnHook => {
+export const useCollectionData = (address: string): TReturnHook => {
   const [list, setList] = useState<TGalleryPunks>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const CrazyPunks = useCrazyPunks();
@@ -35,12 +35,25 @@ export const useCollectionData = (): TReturnHook => {
   const fetchGallery = useCallback(async () => {
     if (CrazyPunks) {
       setLoading(true);
+      let tokenIds;
 
-      const current = await CrazyPunks.methods.totalSupply().call();
-      const tokenIds = new Array(parseInt(current))
-        .fill(null)
-        .map((_: null, index: number) => index);
+      if (!address) {
+        //Search all tokens
+        const current = await CrazyPunks.methods.totalSupply().call();
+        tokenIds = new Array(parseInt(current))
+          .fill(null)
+          .map((_: null, index: number) => index);
+      } else {
+        //Search only owned tokens with ERC721 Enumerable interface
+        const ownerBalance = await CrazyPunks.methods.balanceOf(address).call();
+        const tokenOwnerIds = new Array(parseInt(ownerBalance))
+          .fill(null)
+          .map((_, index) =>
+            CrazyPunks.methods.tokenOfOwnerByIndex(address, index).call()
+          );
 
+        tokenIds = await Promise.all(tokenOwnerIds);
+      }
       const punksPromises = tokenIds.map((id) => getPunkData(CrazyPunks, id));
 
       const punksList = await Promise.all(punksPromises);
@@ -48,7 +61,7 @@ export const useCollectionData = (): TReturnHook => {
       setList(punksList);
       setLoading(false);
     }
-  }, [CrazyPunks]);
+  }, [CrazyPunks, address]);
 
   useEffect(() => {
     fetchGallery();

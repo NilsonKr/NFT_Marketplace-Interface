@@ -86,7 +86,9 @@ export const Header = () => {
         {active ? (
           <Tag colorScheme="green" borderRadius="full">
             <TagLabel>
-              <Link to="/punks">{account && getTruncateAddress(account)}</Link>
+              <Link as={RouterLink} to={`/collection?address=${account}`}>
+                {account && getTruncateAddress(account)}
+              </Link>
             </TagLabel>
             <Badge
               d={{
