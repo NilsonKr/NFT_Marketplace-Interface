@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCollectionData } from "../Hooks/usePunkData";
 import { useWeb3React } from "@web3-react/core";
 import { useSearchParams } from "react-router-dom";
@@ -14,11 +14,15 @@ import {
 export const Gallery = () => {
   const [searchParams] = useSearchParams();
   // TODO: Listen to searchParams change on view
-  const [address, setAddress] = useState<string | null>(
-    searchParams.get("address")
+  const [address, setAddress] = useState<string>(
+    searchParams.get("address") ?? ""
   );
   const { active } = useWeb3React();
   const { loading, list } = useCollectionData(address ? address : "");
+
+  useEffect(() => {
+    setAddress(searchParams.get("address") ?? "");
+  }, [searchParams.get("address")]);
 
   if (!active) return <RequestAccess />;
 

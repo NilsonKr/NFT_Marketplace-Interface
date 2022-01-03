@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWeb3React } from "@web3-react/core";
 //Components
@@ -15,14 +15,18 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
-type TProps = { submit: (addr: string) => void; address: string | null };
+type TProps = { submit: (addr: string) => void; address: string };
 
 export const SearchPunks = ({ submit, address }: TProps) => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>(address);
   const [emptyAddress, setEmptyAddress] = useState<boolean>(false);
   const { library } = useWeb3React();
   const showToast = useToast({ position: "top", status: "error" });
+
+  useEffect(() => {
+    setQuery(address);
+  }, [address]);
 
   const handleSubmit = (ev: FormEvent) => {
     ev.preventDefault();
