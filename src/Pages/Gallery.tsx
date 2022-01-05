@@ -35,11 +35,12 @@ export const Gallery = () => {
       <SearchPunks submit={searchPunks} address={address} />
       {!loading ? (
         <Grid
-          height="75vh"
+          height="70vh"
           overflowY="scroll"
           m="20px auto 0"
           w="80%"
           py={6}
+          pb={12}
           justifyContent="center"
           templateColumns="repeat(auto-fill,minMax(250px, 320px))"
           gap={8}

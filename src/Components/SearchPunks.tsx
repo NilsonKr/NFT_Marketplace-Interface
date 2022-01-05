@@ -13,7 +13,7 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
 
 type TProps = { submit: (addr: string) => void; address: string };
 
@@ -70,10 +70,22 @@ export const SearchPunks = ({ submit, address }: TProps) => {
               value={query}
               onChange={handleChange}
               pl={12}
-              placeholder="Search for a punk"
+              placeholder="Search by owner"
             />
-            <InputRightElement w="100px">
-              <Button type="submit" size="sm" height="1.6rem" px={4}>
+            <InputRightElement w="130px">
+              <CloseIcon
+                onClick={() => setQuery("")}
+                color={query ? "gray.500" : "transparent"}
+                mr={4}
+                cursor="pointer"
+              />
+              <Button
+                justifySelf={"end"}
+                type="submit"
+                size="sm"
+                height="1.6rem"
+                px={4}
+              >
                 Search
               </Button>
             </InputRightElement>

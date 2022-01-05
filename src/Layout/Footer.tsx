@@ -8,7 +8,11 @@ export const Footer = () => {
 
   return (
     <footer className="footer">
-      <Box w={isHome ? "100%" : "80%"} m={"0 auto"}>
+      <Box
+        w={isHome ? "100%" : "80%"}
+        bg={isHome ? "unset" : "white"}
+        m={"0 auto"}
+      >
         {!isHome && <Divider borderBottomWidth={2} orientation="horizontal" />}
         <Box className="container" px={0}>
           <Flex w="100%" alignItems={"end"}>

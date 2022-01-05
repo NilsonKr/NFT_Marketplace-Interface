@@ -7,6 +7,7 @@ type Taccount = string | null | undefined;
 type TSupplyInfo = {
   currSupply: number;
   maxSupply: number;
+  balance: number;
 };
 
 interface TAttributes {

@@ -3,3 +3,5 @@ export const getTruncateAddress = (address: string): string => {
 
   return truncateAddress;
 };
+
+export { allowedToMint } from "./allowMint";

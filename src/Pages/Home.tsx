@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import { getTruncateAddress } from "../Utils/Index";
+import { getTruncateAddress, allowedToMint } from "../Utils/Index";
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import useCrazyPunks from "../Hooks/useCrazyPunks";
@@ -29,6 +29,7 @@ export const Home = () => {
 
   const getCrazyPunkData = useCallback(async () => {
     if (CrazyPunks) {
+      const accBalance = await CrazyPunks.methods.balanceOf(account).call();
       const maxSupply = await CrazyPunks.methods.maxSupply().call();
       const currSupply = await CrazyPunks.methods.totalSupply().call();
       const dnaPreview = await CrazyPunks.methods
@@ -38,7 +39,7 @@ export const Home = () => {
         .getImageURI(dnaPreview)
         .call();
 
-      setSupplyInfo({ currSupply, maxSupply });
+      setSupplyInfo({ currSupply, maxSupply, balance: accBalance });
       setImageSrc(imageURL);
     }
   }, [CrazyPunks, account]);
@@ -113,7 +114,7 @@ export const Home = () => {
               animate={{ x: 0 }}
               transition={{ duration: 0.8 }}
             ></motion.div>
-            Un CrazyPunk
+            CrazyPunks
           </Text>
           <br />
           <motion.div
@@ -122,14 +123,14 @@ export const Home = () => {
             transition={{ duration: 0.4, delay: 0.7 }}
           >
             <Text as={"span"} color={"white"}>
-              Placeholder text
+              For People Cool
             </Text>
           </motion.div>
         </Heading>
         <Text color={"gray.500"} textAlign={"center"}>
-          Crazy Punks es una colección de Avatares randomizados cuya metadata es
-          almacenada on-chain. Poseen características únicas y sólo hay 10000 en
-          existencia.
+          CrazyPunks is a collection of randomized avatars with metadata storage
+          on-chain, each one has unique characteristics and there are only{" "}
+          {supplyInfo.maxSupply} on existence
         </Text>
         <Flex justify={"center"}>
           <Stack
@@ -146,10 +147,12 @@ export const Home = () => {
                 bg={"green.400"}
                 _hover={{ bg: "green.500" }}
                 onClick={mintCrazyPunk}
-                disabled={!CrazyPunks}
+                disabled={
+                  !CrazyPunks || !allowedToMint(account, supplyInfo.balance!)
+                }
                 isLoading={isMinting}
               >
-                Obtén tu CrazyPunk
+                Get your CrazyPunk
               </Button>
               <Text
                 fontSize="sm"
@@ -158,14 +161,13 @@ export const Home = () => {
                 color={"white"}
               >
                 {active &&
-                  `Solo quedan ${
-                    supplyInfo.maxSupply! - supplyInfo.currSupply!
-                  }`}
+                  supplyInfo.maxSupply &&
+                  `Only ${supplyInfo.maxSupply! - supplyInfo.currSupply!} left`}
               </Text>
             </Stack>
-            <Link to="/punks">
+            <Link to="/collection">
               <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6}>
-                Galería
+                Gallery
               </Button>
             </Link>
           </Stack>

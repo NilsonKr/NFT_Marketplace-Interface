@@ -116,7 +116,7 @@ export const Punk = () => {
               >
                 <OpenSeaIcon />
                 <LinkOverlay
-                  href={`${GalleryURL}1`}
+                  href={`${GalleryURL}${Punk.tokenId}`}
                   target="_blank"
                   fontSize="lg"
                   fontWeight="extrabold"
