@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useCollectionData } from "../Hooks/usePunkData";
 import { useWeb3React } from "@web3-react/core";
 import { useSearchParams } from "react-router-dom";
@@ -20,9 +20,11 @@ export const Gallery = () => {
   const { active } = useWeb3React();
   const { loading, list } = useCollectionData(address ? address : "");
 
+  const currQuery = useMemo(() => searchParams.get("address"), [searchParams]);
+
   useEffect(() => {
-    setAddress(searchParams.get("address") ?? "");
-  }, [searchParams.get("address")]);
+    setAddress(currQuery ?? "");
+  }, [currQuery]);
 
   if (!active) return <RequestAccess />;
 

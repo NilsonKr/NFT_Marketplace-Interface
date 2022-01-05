@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useWallet } from "./Hooks/useWallet";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 
 import { Home } from "./Pages/Home";
 import { Gallery } from "./Pages/Gallery";
@@ -16,7 +16,7 @@ export const App = () => {
   }, [connect]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -35,6 +35,6 @@ export const App = () => {
           <Route path="/crazypunk/:punkId" element={<Punk />} />
         </Routes>
       </Layout>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
