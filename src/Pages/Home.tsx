@@ -92,7 +92,11 @@ export const Home = () => {
       py={{ base: 20, md: 28 }}
       direction={{ base: "column-reverse", md: "row" }}
     >
-      <Stack flex={1} spacing={{ base: 5, md: 10 }}>
+      <Stack
+        flex={1}
+        mt={{ sm: 6, md: "inherit" }}
+        spacing={{ base: 5, md: 10 }}
+      >
         <Heading
           lineHeight={0.9}
           textAlign={"center"}
@@ -175,6 +179,7 @@ export const Home = () => {
       </Stack>
       <Flex
         flex={1}
+        mt={{ sm: "20px !important", md: "unset" }}
         direction="column"
         justify={"center"}
         align={"center"}
@@ -204,14 +209,24 @@ export const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              <Image src={Avatar1} w={"3xs"} h={"2xs"} pb={10} />
+              <Image
+                src={Avatar1}
+                w={{ sm: "10rem", md: "3xs" }}
+                h={{ sm: "12rem", md: "2xs" }}
+                pb={10}
+              />
             </motion.div>
             <motion.div
               initial={{ y: 120, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.2 }}
             >
-              <Image src={Avatar2} pb={10} w={"3xs"} h={"2xs"} />
+              <Image
+                src={Avatar2}
+                pb={10}
+                w={{ sm: "10rem", md: "3xs" }}
+                h={{ sm: "12rem", md: "2xs" }}
+              />
             </motion.div>
           </Stack>
           <Box
@@ -226,11 +241,7 @@ export const Home = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.7 }}
             >
-              <Image
-                w={"1xs"}
-                h={"1xs"}
-                src={active ? imageSrc : "https://avataaars.io/"}
-              />
+              <Image src={active ? imageSrc : "https://avataaars.io/"} />
             </motion.div>
           </Box>
         </Box>

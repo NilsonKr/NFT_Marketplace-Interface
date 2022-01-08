@@ -47,42 +47,38 @@ export const Header = () => {
     <Box
       className="container"
       position="relative"
+      flexDirection={{ sm: "column", md: "row" }}
+      py={4}
       zIndex={1}
       backgroundColor={"gray.50"}
       boxShadow={"0 4px 8px rgba(0,0,0,.09)"}
     >
-      <Flex align={"center"}>
+      <Flex align={"center"} direction={{ sm: "column", md: "row" }}>
         <RouterLink to="/">
           <Image marginRight="35px" src={Logo} alt="CrazyPunks" />
         </RouterLink>
-        <RouterLink
-          className="navTab"
-          style={({ isActive }) => (isActive ? activeStyle : {})}
-          // _hover={{
-          //   borderBottom: "0px",
-          //   color: "black",
-          // }}
-          to="/"
-        >
-          <Text fontWeight={"500"} fontSize={"lg"}>
-            Home
-          </Text>
-        </RouterLink>
-        <RouterLink
-          style={({ isActive }) => (isActive ? activeStyle : {})}
-          className="navTab"
-          // _hover={{
-          //   borderBottom: "0px",
-          //   color: "black",
-          // }}
-          to="/collection"
-        >
-          <Text fontWeight={"500"} fontSize={"lg"}>
-            Punks
-          </Text>
-        </RouterLink>
+        <Flex align={"center"} my={{ sm: 4, md: 0 }}>
+          <RouterLink
+            className="navTab"
+            style={({ isActive }) => (isActive ? activeStyle : {})}
+            to="/"
+          >
+            <Text fontWeight={"500"} fontSize={"lg"}>
+              Home
+            </Text>
+          </RouterLink>
+          <RouterLink
+            style={({ isActive }) => (isActive ? activeStyle : {})}
+            className="navTab"
+            to="/collection"
+          >
+            <Text fontWeight={"500"} fontSize={"lg"}>
+              Punks
+            </Text>
+          </RouterLink>
+        </Flex>
       </Flex>
-      <Flex alignItems={"center"}>
+      <Flex alignItems={"center"} justify={{ sm: "center", md: "unset" }}>
         {active ? (
           <Tag colorScheme="green" borderRadius="full">
             <TagLabel>

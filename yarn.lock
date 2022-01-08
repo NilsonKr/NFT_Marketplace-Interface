@@ -14765,6 +14765,7 @@ __metadata:
   dependencies:
     "@chakra-ui/icons": ^1.1.1
     "@chakra-ui/react": ^1.7.3
+    "@chakra-ui/theme-tools": ^1.3.1
     "@emotion/react": ^11
     "@emotion/styled": ^11
     "@testing-library/jest-dom": ^5.11.4
