@@ -48,7 +48,7 @@ export const Header = () => {
       className="container"
       position="relative"
       flexDirection={{ sm: "column", md: "row" }}
-      py={{ sm: 2, md: "unset" }}
+      py={4}
       zIndex={1}
       backgroundColor={"gray.50"}
       boxShadow={"0 4px 8px rgba(0,0,0,.09)"}

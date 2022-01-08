@@ -25,7 +25,7 @@ export const Footer = () => {
               px={{ sm: 2, md: 24 }}
             >
               <Text
-                fontSize={{ sm: "0.65rem", md: "inherit" }}
+                fontSize={{ sm: "0.65rem", md: "lg" }}
                 color="gray.500"
                 zIndex={1}
               >
@@ -40,7 +40,7 @@ export const Footer = () => {
                 </Link>
               </Text>
               <Text
-                fontSize={{ sm: "0.65rem", md: "inherit" }}
+                fontSize={{ sm: "0.65rem", md: "lg" }}
                 color="gray.500"
                 zIndex={1}
               >
