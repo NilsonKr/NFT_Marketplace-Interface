@@ -54,7 +54,7 @@ export const Home = () => {
         setIsMiting(false);
         showToast({
           status: "info",
-          title: "Transaccion enviada",
+          title: "Transaction sent",
           description: txHash,
         });
       })
@@ -62,7 +62,7 @@ export const Home = () => {
         setIsMiting(false);
         showToast({
           status: "success",
-          title: "Transaccion confirmada",
+          title: "Transaction confirmed",
           description: "Rock your CrazyPunk!",
           variant: "top-accent",
         });
@@ -73,7 +73,7 @@ export const Home = () => {
         setIsMiting(false);
         showToast({
           status: "error",
-          title: "Transaccion fallida :(",
+          title: "Transaction failed :(",
           description: error.message,
         });
       });
@@ -258,11 +258,11 @@ export const Home = () => {
               size="xs"
               colorScheme="green"
             >
-              Actualizar
+              Refresh Punk
             </Button>
           </>
         ) : (
-          <Badge mt={10}>Wallet desconectado</Badge>
+          <Badge mt={10}>Wallet Disconnected</Badge>
         )}
       </Flex>
     </Stack>

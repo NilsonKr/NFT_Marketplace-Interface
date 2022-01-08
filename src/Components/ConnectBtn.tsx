@@ -13,7 +13,7 @@ export const ConnectBtn = ({ error, connect }: Props) => {
       onClick={connect}
       disabled={error}
     >
-      {error ? "Red no soportada" : "Conectar wallet"}
+      {error ? "Unsupported Net" : "Connect Wallet"}
     </Button>
   );
 };

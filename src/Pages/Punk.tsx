@@ -60,7 +60,7 @@ export const Punk = () => {
         console.log(receipt);
         showToast({
           status: "success",
-          title: "Transaction confirmed",
+          title: "Transfer confirmed",
           description: "Transfer successful",
           variant: "top-accent",
         });

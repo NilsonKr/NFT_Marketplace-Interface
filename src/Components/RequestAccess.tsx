@@ -25,8 +25,8 @@ export const RequestAccess = () => {
       </Center>
       <Alert status="error">
         <AlertIcon />
-        <AlertTitle mr={2}>Conecta tu wallet</AlertTitle>
-        <AlertDescription>para acceder a la app</AlertDescription>
+        <AlertTitle mr={2}>Connect your wallet</AlertTitle>
+        <AlertDescription>to access the app</AlertDescription>
       </Alert>
     </Container>
   );
