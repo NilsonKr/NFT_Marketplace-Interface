@@ -22,9 +22,13 @@ export const Footer = () => {
               w="100%"
               justify={"space-between"}
               align={"center"}
-              px={24}
+              px={{ sm: 2, md: 24 }}
             >
-              <Text color="gray.500" zIndex={1}>
+              <Text
+                fontSize={{ sm: "0.65rem", md: "inherit" }}
+                color="gray.500"
+                zIndex={1}
+              >
                 Made with 💚 by
                 <Link
                   target="_blank"
@@ -35,7 +39,11 @@ export const Footer = () => {
                   NilsonKr
                 </Link>
               </Text>
-              <Text color="gray.500" zIndex={1}>
+              <Text
+                fontSize={{ sm: "0.65rem", md: "inherit" }}
+                color="gray.500"
+                zIndex={1}
+              >
                 <Link
                   target="_blank"
                   href="https://getavataaars.com"
