@@ -14,7 +14,7 @@ Client for a descentralized NFT-Marketplace built with web3 and smart-contracts 
 - The mint price is free, you only will have to pay the fees of the transaction
 - You can check your NFTs on OpenSea, for this you have to set up an account on [Opensea for testnets](https://testnets.opensea.io/)
 
-## _You only will available to have up to 5 CrazyPunks for account_ \*
+## _You only will available to have up to 5 CrazyPunks per account_ \*
 
 </br>
 
