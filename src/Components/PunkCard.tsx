@@ -30,7 +30,7 @@ export const PunkCard = ({ tokenId, image, name, style, opensea }: Props) => {
       overflow="hidden"
       py={6}
       maxW={"330px"}
-      w={"full"}
+      w={"330px"}
       h="max-content"
       bg={useColorModeValue("white", "gray.800")}
       boxShadow={"lg"}

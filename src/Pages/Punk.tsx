@@ -20,6 +20,8 @@ import {
   Tbody,
   Button,
   Tag,
+  TagLabel,
+  TagRightIcon,
   Accordion,
   AccordionItem,
   AccordionButton,
@@ -27,6 +29,7 @@ import {
   AccordionPanel,
   useToast,
 } from "@chakra-ui/react";
+import { CopyIcon } from "@chakra-ui/icons";
 import { ReactComponent as OpenSeaIcon } from "../assets/OpenSea.svg";
 import { PunkCard } from "../Components/PunkCard";
 import { Loading, RequestAccess, TransferModal } from "../Components/Index";
@@ -76,6 +79,15 @@ export const Punk = () => {
       });
   };
 
+  const copyDna = () => {
+    navigator.clipboard.writeText(Punk!.DNA as string);
+    showToast({
+      status: "success",
+      title: "Copied DNA!",
+      duration: 1500,
+    });
+  };
+
   if (!active) return <RequestAccess />;
 
   if (loading) return <Loading />;
@@ -84,17 +96,21 @@ export const Punk = () => {
     <>
       {Punk?.image && (
         <Stack
-          w="80%"
+          w={{ base: "95%", md: "80%" }}
           m="40px auto 0"
-          h="74vh"
+          h={{ base: "60vh", md: "74vh" }}
           spacing={{ base: 8, md: 10 }}
           py={{ base: 5 }}
           direction={{ base: "column", md: "row" }}
           overflowY="scroll"
+          overflowX="hidden"
         >
           <Stack>
             <PunkCard
-              style={{ w: "400px" }}
+              style={{
+                w: { base: "300px", md: "400px" },
+                mx: { base: "auto", md: "inherit" },
+              }}
               tokenId={parseInt(punkId!)}
               name={Punk.name as string}
               image={Punk.image as string}
@@ -130,20 +146,29 @@ export const Punk = () => {
           </Stack>
           <Stack width="100%" spacing={5} pr={4}>
             <Heading>{Punk.name}</Heading>
-            <Text fontSize="xl">{Punk.description}</Text>
+            <Text fontSize={{ base: "md", md: "xl" }}>{Punk.description}</Text>
             <Text fontWeight={600}>
               DNA:
-              <Tag ml={2} colorScheme="green">
-                {Punk.DNA}
+              <Tag
+                fontSize={{ base: "xs", md: "md" }}
+                ml={{ base: 0, md: 2 }}
+                colorScheme="green"
+              >
+                <TagLabel isTruncated>{Punk.DNA}</TagLabel>
+                <TagRightIcon as={CopyIcon} onClick={copyDna} />
               </Tag>
             </Text>
             <Text fontWeight={600}>
               Owner:
-              <Tag ml={2} colorScheme="green">
+              <Tag
+                fontSize={{ base: "xs", md: "md" }}
+                ml={{ base: 0, md: 2 }}
+                colorScheme="green"
+              >
                 {Punk.owner}
               </Tag>
             </Text>
-            <Accordion allowToggle>
+            <Accordion allowToggle minW="280px" mx={{ base: "auto", md: "0" }}>
               <AccordionItem>
                 <AccordionButton>
                   <Box flex={1} textAlign="left">

@@ -9,7 +9,7 @@ export const Footer = () => {
   return (
     <footer className="footer">
       <Box
-        w={isHome ? "100%" : "80%"}
+        w={isHome ? "100%" : { base: "100%", md: "80%" }}
         bg={isHome ? "unset" : "white"}
         m={"0 auto"}
       >

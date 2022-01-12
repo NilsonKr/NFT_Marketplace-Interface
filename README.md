@@ -16,7 +16,7 @@ Client for a descentralized NFT-Marketplace built with web3 and smart-contracts 
 
 ## _You only will available to have up to 5 CrazyPunks for account_ \*
 
-</b r>
+</br>
 
 _if you are curious about how this works under the hood, you could go and check out my [NFT_Marketplace repository](https://github.com/NilsonKr/NFT_Marketplace) where is stored the code for the smart-contract of CrazyPunks_
 
